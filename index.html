@@ -1,8 +1,10 @@
+```html
 <!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hafiz Maulana | DKV Designer & Creative Portfolio</title>
+    <title>Hafiz Maulana | DKV Designer Portfolio & Knowledge Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -19,13 +21,15 @@
                     },
                     colors: {
                         brand: {
-                            dark: '#0B0F17',
-                            card: '#151C2C',
-                            border: '#232D42',
+                            dark: '#080C14',
+                            card: '#111827',
+                            cardLight: '#1F2937',
+                            border: '#1F293D',
                             accent: '#6366F1', // Indigo
-                            violet: '#8B5CF6',
-                            cyan: '#06B6D4',
-                            neon: '#10B981'
+                            violet: '#8B5CF6', // Purple
+                            cyan: '#06B6D4',   // Cyan
+                            neon: '#10B981',   // Emerald
+                            gold: '#F59E0B'    // Amber
                         }
                     }
                 }
@@ -34,23 +38,19 @@
     </script>
     
     <style>
-        /* Custom Custom Scrollbar and Animations */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0B0F17;
+            background: #080C14;
         }
         ::-webkit-scrollbar-thumb {
-            background: #232D42;
+            background: #1F293D;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #6366F1;
-        }
-
-        .glow-effect {
-            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.3);
         }
 
         .gradient-text {
@@ -59,154 +59,188 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .gradient-gold {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .glass-card {
-            background: rgba(21, 28, 44, 0.7);
-            backdrop-filter: blur(12px);
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .glass-card:hover {
             border-color: rgba(99, 102, 241, 0.4);
         }
+
+        .portfolio-item {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .portfolio-item.hidden-item {
+            display: none !important;
+        }
+
+        .tab-btn.active-tab {
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 15px -3px rgba(99, 102, 241, 0.4);
+        }
     </style>
 </head>
 <body class="bg-brand-dark text-slate-200 font-sans antialiased selection:bg-brand-accent selection:text-white min-h-screen flex flex-col">
 
     <!-- Navigation Bar -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-card border-b border-brand-border/50">
+    <header class="fixed top-0 left-0 w-full z-50 glass-card border-b border-brand-border/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#home" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-accent to-brand-cyan flex items-center justify-center text-white font-extrabold text-xl shadow-lg group-hover:scale-105 transition-transform">
-                    H
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-accent via-brand-violet to-brand-cyan flex items-center justify-center text-white font-extrabold text-xl shadow-lg group-hover:scale-105 transition-transform">
+                    HM
                 </div>
                 <div>
-                    <span class="font-bold text-lg text-white block leading-none">HAFIZ MAULANA</span>
-                    <span class="text-xs text-brand-cyan font-medium">12 DKV • SMK AL IRSYAD</span>
+                    <span class="font-extrabold text-lg text-white block leading-none tracking-tight">HAFIZ MAULANA</span>
+                    <span class="text-[11px] text-brand-cyan font-semibold">12 DKV • SMK AL IRSYAD</span>
                 </div>
             </a>
 
             <!-- Desktop Menu -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
-                <a href="#home" class="hover:text-brand-accent transition-colors">Beranda</a>
-                <a href="#about" class="hover:text-brand-accent transition-colors">Tentang Saya</a>
-                <a href="#portfolio" class="hover:text-brand-accent transition-colors">Galeri Karya</a>
-                <a href="#creative-process" class="hover:text-brand-accent transition-colors">Proses Kreatif</a>
-                <a href="#contact" class="hover:text-brand-accent transition-colors">Kontak</a>
+            <nav class="hidden lg:flex items-center gap-7 text-xs font-bold uppercase tracking-wider">
+                <a href="#home" class="hover:text-brand-cyan transition-colors">Beranda</a>
+                <a href="#about" class="hover:text-brand-cyan transition-colors">Profil</a>
+                <a href="#theory" class="hover:text-brand-cyan transition-colors">Materi DKV</a>
+                <a href="#portfolio" class="hover:text-brand-cyan transition-colors">Galeri Karya</a>
+                <a href="#process" class="hover:text-brand-cyan transition-colors">Proses & Tools</a>
+                <a href="#contact" class="hover:text-brand-cyan transition-colors">Kontak</a>
             </nav>
 
             <!-- CTA Button & Mobile Toggle -->
             <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-accent to-brand-violet hover:opacity-90 text-white font-semibold text-sm transition-all shadow-lg hover:shadow-brand-accent/25">
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-accent to-brand-violet hover:opacity-90 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg hover:shadow-brand-accent/30">
                     <i class="fa-solid fa-paper-plane"></i>
-                    <span>Hubungi Saya</span>
+                    <span>Diskusi Proyek</span>
                 </a>
                 
-                <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
+                <button id="mobileMenuBtn" class="lg:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="hidden md:hidden bg-brand-card border-b border-brand-border px-6 py-4 flex flex-col gap-4 text-sm font-semibold">
-            <a href="#home" class="mobile-link py-2 hover:text-brand-accent">Beranda</a>
-            <a href="#about" class="mobile-link py-2 hover:text-brand-accent">Tentang Saya</a>
-            <a href="#portfolio" class="mobile-link py-2 hover:text-brand-accent">Galeri Karya</a>
-            <a href="#creative-process" class="mobile-link py-2 hover:text-brand-accent">Proses Kreatif</a>
-            <a href="#contact" class="mobile-link py-2 hover:text-brand-accent">Kontak</a>
+        <div id="mobileMenu" class="hidden lg:hidden bg-brand-card border-b border-brand-border px-6 py-4 flex flex-col gap-3 text-sm font-semibold">
+            <a href="#home" class="mobile-link py-2 hover:text-brand-accent border-b border-brand-border/40">Beranda</a>
+            <a href="#about" class="mobile-link py-2 hover:text-brand-accent border-b border-brand-border/40">Profil Desainer</a>
+            <a href="#theory" class="mobile-link py-2 hover:text-brand-accent border-b border-brand-border/40">Materi & Teori DKV</a>
+            <a href="#portfolio" class="mobile-link py-2 hover:text-brand-accent border-b border-brand-border/40">Galeri 11 Karya</a>
+            <a href="#process" class="mobile-link py-2 hover:text-brand-accent border-b border-brand-border/40">Proses Kreatif & Tools</a>
+            <a href="#contact" class="mobile-link py-2 hover:text-brand-accent">Kontak & Hubungi</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 md:pt-44 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
-        <div class="flex-1 text-center md:text-left">
+    <section id="home" class="pt-32 pb-20 md:pt-44 md:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div class="flex-1 text-center lg:text-left">
             <!-- Badge -->
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-card border border-brand-border text-brand-cyan text-xs font-semibold mb-6">
-                <span class="w-2 h-2 rounded-full bg-brand-neon animate-pulse"></span>
-                Siswa Kelas 12 DKV • SMK Al Irsyad Al Islamiyyah Haurgeulis
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-card border border-brand-border text-brand-cyan text-xs font-bold mb-6 shadow-inner">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-neon animate-pulse"></span>
+                Siswa 12 DKV • SMK Al Irsyad Al Islamiyyah Haurgeulis
             </div>
 
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
-                Menciptakan <span class="gradient-text">Visual Berkelas</span> dengan Komunikasi Bermakna.
+                Transformasi Ide Jadi <span class="gradient-text">Visual Komunikatif</span> & Berestetika Tinggi.
             </h1>
 
             <p class="text-slate-400 text-base sm:text-lg max-w-2xl mb-8 leading-relaxed">
-                Halo! Saya <strong>Hafiz Maulana</strong>, calon Visual Designer profesional berfokus pada Branding, Graphic Design, Tipografi, Fotografi, dan Desain Kemasan. Berkomitmen menghadirkan karya estetis & solutif.
+                Halo! Saya <strong>Hafiz Maulana</strong>, desainer muda Desain Komunikasi Visual (DKV). Berfokus pada penyampaian pesan melalui branding, layout tipografi, karya ilustrasi vektor, fotografi studio, hingga kemasan komersial.
             </p>
 
-            <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                <a href="#portfolio" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-accent to-brand-violet text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg hover:shadow-brand-accent/30 flex items-center gap-2">
-                    <span>Eksplorasi Karya</span>
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                <a href="#portfolio" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-accent to-brand-violet text-white font-bold text-sm hover:opacity-90 transition-all shadow-xl hover:shadow-brand-accent/30 flex items-center gap-2">
+                    <span>Eksplorasi 11 Karya</span>
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>
-                <a href="#contact" class="px-7 py-3.5 rounded-xl bg-brand-card hover:bg-brand-border border border-brand-border text-slate-200 font-bold text-sm transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    <span>Diskusi Proyek</span>
+                <a href="#theory" class="px-7 py-3.5 rounded-xl bg-brand-card hover:bg-brand-cardLight border border-brand-border text-slate-200 font-bold text-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-brand-cyan"></i>
+                    <span>Pelajari Teori DKV</span>
                 </a>
             </div>
 
-            <!-- Highlights / Stats -->
+            <!-- Stats Bar -->
             <div class="grid grid-cols-3 gap-4 mt-12 pt-8 border-t border-brand-border/60">
                 <div>
-                    <span class="block text-2xl sm:text-3xl font-extrabold text-white">9+</span>
-                    <span class="text-xs text-slate-400 font-medium">Kategori Karya</span>
+                    <span class="block text-2xl sm:text-3xl font-extrabold text-white">12+</span>
+                    <span class="text-xs text-slate-400 font-medium">Karya DKV Utama</span>
+                </div>
+                <div>
+                    <span class="block text-2xl sm:text-3xl font-extrabold text-white">6 Modules</span>
+                    <span class="text-xs text-slate-400 font-medium">Materi & Fondasi DKV</span>
                 </div>
                 <div>
                     <span class="block text-2xl sm:text-3xl font-extrabold text-white">100%</span>
-                    <span class="text-xs text-slate-400 font-medium">Dedikasi Desain</span>
-                </div>
-                <div>
-                    <span class="block text-2xl sm:text-3xl font-extrabold text-white">DKV</span>
-                    <span class="text-xs text-slate-400 font-medium">Spesialisasi Komunikasi</span>
+                    <span class="text-xs text-slate-400 font-medium">Passion & Dedikasi</span>
                 </div>
             </div>
         </div>
 
-        <!-- Designer Hero Avatar Visual -->
-        <div class="w-full md:w-1/2 max-w-md relative">
-            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-accent via-brand-violet to-brand-cyan opacity-30 blur-xl animate-pulse"></div>
+        <!-- Visual Hero Illustration Mockup -->
+        <div class="w-full lg:w-1/2 max-w-md relative">
+            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-brand-accent via-brand-violet to-brand-cyan opacity-30 blur-2xl animate-pulse"></div>
             <div class="relative glass-card rounded-3xl p-6 border border-brand-border text-center overflow-hidden">
-                <!-- Visual Graphic Card mockup -->
-                <div class="w-full h-80 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 relative flex items-center justify-center overflow-hidden border border-brand-border/50">
-                    <!-- Geometric SVG Art overlay -->
-                    <svg class="absolute w-full h-full opacity-40" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="200" cy="200" r="160" stroke="url(#paint0_linear)" stroke-width="2" stroke-dasharray="8 8"/>
-                        <circle cx="200" cy="200" r="110" stroke="url(#paint1_linear)" stroke-width="3"/>
-                        <rect x="120" y="120" width="160" height="160" rx="20" transform="rotate(45 200 200)" stroke="#8B5CF6" stroke-width="2"/>
+                <div class="w-full h-88 rounded-2xl bg-slate-950 relative flex items-center justify-center overflow-hidden border border-brand-border/80">
+                    
+                    <!-- Dynamic Geometric SVG Canvas Graphic -->
+                    <svg class="absolute w-full h-full opacity-35" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="200" cy="200" r="170" stroke="url(#heroGrad1)" stroke-width="2" stroke-dasharray="6 6"/>
+                        <circle cx="200" cy="200" r="120" stroke="url(#heroGrad2)" stroke-width="3"/>
+                        <rect x="110" y="110" width="180" height="180" rx="24" transform="rotate(45 200 200)" stroke="#8B5CF6" stroke-width="2"/>
+                        <line x1="0" y1="200" x2="400" y2="200" stroke="#06B6D4" stroke-width="1" stroke-dasharray="4 4"/>
+                        <line x1="200" y1="0" x2="200" y2="400" stroke="#6366F1" stroke-width="1" stroke-dasharray="4 4"/>
                         <defs>
-                            <linearGradient id="paint0_linear" x1="40" y1="40" x2="360" y2="360" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="heroGrad1" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
                                 <stop stop-color="#6366F1"/>
                                 <stop offset="1" stop-color="#06B6D4"/>
                             </linearGradient>
-                            <linearGradient id="paint1_linear" x1="90" y1="90" x2="310" y2="310" gradientUnits="userSpaceOnUse">
+                            <linearGradient id="heroGrad2" x1="40" y1="40" x2="360" y2="360" gradientUnits="userSpaceOnUse">
                                 <stop stop-color="#8B5CF6"/>
                                 <stop offset="1" stop-color="#10B981"/>
                             </linearGradient>
                         </defs>
                     </svg>
 
-                    <!-- Center Icon Badge -->
-                    <div class="relative z-10 flex flex-col items-center">
-                        <div class="w-24 h-24 rounded-full bg-brand-dark/90 border-2 border-brand-accent flex items-center justify-center text-4xl text-brand-cyan mb-3 shadow-2xl">
-                            <i class="fa-solid fa-palette"></i>
+                    <!-- Profile Graphic Card Badge -->
+                    <div class="relative z-10 flex flex-col items-center p-4">
+                        <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl border-2 border-brand-accent shadow-2xl overflow-hidden mb-4 relative group">
+                            <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789003995_6b84ebc6.jpg" 
+                                 alt="Hafiz Maulana DKV" 
+                                 class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/300x300/111827/06B6D4?text=Hafiz+Maulana';">
                         </div>
-                        <span class="text-xs font-bold tracking-widest text-brand-violet uppercase">Visual Designer</span>
-                        <span class="text-xl font-extrabold text-white">Hafiz Maulana</span>
-                        <span class="text-xs text-slate-400 mt-1">SMK Al Irsyad Haurgeulis</span>
+                        <span class="text-xs font-extrabold tracking-widest text-brand-violet uppercase">Visual Designer</span>
+                        <h2 class="text-2xl font-black text-white mt-1">Hafiz Maulana</h2>
+                        <span class="text-xs text-slate-400 mt-1">SMK Al Irsyad Al Islamiyyah Haurgeulis</span>
+                        
+                        <div class="flex items-center gap-2 mt-4">
+                            <span class="px-3 py-1 rounded-full bg-brand-accent/20 border border-brand-accent/40 text-[10px] font-bold text-brand-accent">DKV 12</span>
+                            <span class="px-3 py-1 rounded-full bg-brand-cyan/20 border border-brand-cyan/40 text-[10px] font-bold text-brand-cyan">Branding</span>
+                            <span class="px-3 py-1 rounded-full bg-brand-neon/20 border border-brand-neon/40 text-[10px] font-bold text-brand-neon">Photography</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Floating Tags -->
-                <div class="flex items-center justify-between gap-2 mt-4 text-xs font-semibold">
-                    <span class="px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-slate-300">
-                        <i class="fa-solid fa-bezier-curve text-brand-accent mr-1"></i> Vector Art
+                <!-- Footer Tag Bar -->
+                <div class="flex items-center justify-between gap-2 mt-4 text-[11px] font-bold">
+                    <span class="px-3 py-2 rounded-xl bg-brand-card border border-brand-border text-slate-300 flex-1">
+                        <i class="fa-solid fa-swatchbook text-brand-accent mr-1"></i> Nirmana
                     </span>
-                    <span class="px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-slate-300">
-                        <i class="fa-solid fa-camera text-brand-cyan mr-1"></i> Photography
+                    <span class="px-3 py-2 rounded-xl bg-brand-card border border-brand-border text-slate-300 flex-1">
+                        <i class="fa-solid fa-box text-brand-gold mr-1"></i> Packaging
                     </span>
-                    <span class="px-3 py-1.5 rounded-lg bg-brand-dark border border-brand-border text-slate-300">
-                        <i class="fa-solid fa-box-archive text-brand-neon mr-1"></i> Packaging
+                    <span class="px-3 py-2 rounded-xl bg-brand-card border border-brand-border text-slate-300 flex-1">
+                        <i class="fa-solid fa-camera text-brand-cyan mr-1"></i> Photo
                     </span>
                 </div>
             </div>
@@ -214,61 +248,78 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-brand-card/40 border-y border-brand-border/50">
+    <section id="about" class="py-20 bg-brand-card/40 border-y border-brand-border/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-bold tracking-widest text-brand-accent uppercase mb-2">Profil Desainer</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white">Latar Belakang & Keterampilan</p>
-                <p class="text-slate-400 mt-3 text-sm sm:text-base">Membangun dasar desain yang kokoh dari SMK Al Irsyad Al Islamiyyah Haurgeulis untuk memasuki industri kreatif profesional.</p>
+                <h2 class="text-xs font-extrabold tracking-widest text-brand-accent uppercase mb-2">Profil & Dedikasi</h2>
+                <p class="text-3xl sm:text-4xl font-black text-white">Latar Belakang Hafiz Maulana</p>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">Siswa tingkat akhir kompetensi keahlian Desain Komunikasi Visual di SMK Al Irsyad Al Islamiyyah Haurgeulis.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <!-- Left Bio Text -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Bio Text -->
                 <div class="space-y-6">
-                    <div class="glass-card p-6 rounded-2xl border border-brand-border">
-                        <h3 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-graduation-cap text-brand-cyan"></i>
-                            Pendidikan & Fokus
-                        </h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Sebagai siswa jurusan <strong>Desain Komunikasi Visual (DKV)</strong> di SMK Al Irsyad Al Islamiyyah Haurgeulis, saya mempelajari dasar-dasar nirmana, estetika visual, hirarki layout, manipulasi foto, hingga konsep branding komersial modern.
-                        </p>
+                    <div class="glass-card p-6 rounded-2xl border border-brand-border flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789003995_6b84ebc6.jpg" 
+                             alt="Hafiz Maulana Profile" 
+                             class="w-20 h-20 rounded-xl object-cover object-top border border-brand-accent flex-shrink-0 shadow-lg"
+                             onerror="this.onerror=null; this.src='https://placehold.co/200x200/111827/06B6D4?text=Hafiz';">
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-graduation-cap text-brand-cyan"></i>
+                                Pendidikan & Keahlian DKV
+                            </h3>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Selama menempuh pendidikan di <strong>SMK Al Irsyad Al Islamiyyah Haurgeulis</strong>, saya dibekali keterampilan mengolah elemen estetika visual, pesan komunikasi, serta prinsip teknis pembuatan media visual komersial maupun artistik.
+                            </p>
+                        </div>
                     </div>
 
                     <div class="glass-card p-6 rounded-2xl border border-brand-border">
-                        <h3 class="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-lightbulb text-brand-violet"></i>
-                            Filosofi Desain
+                        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-quote-left text-brand-violet"></i>
+                            Filosofi Karya
                         </h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            "Desain bukan hanya tentang tampilan yang indah, tetapi tentang bagaimana sebuah pesan visual dapat dipahami, dirasakan, dan memberikan solusi bagi audiens."
+                        <p class="text-slate-300 text-sm leading-relaxed italic">
+                            "Desain Komunikasi Visual bukan hanya sekadar memperindah bentuk, melainkan menciptakan solusi komunikasi efektif agar pesan tepat sasaran dan memberikan impresi emosional yang bertahan lama."
                         </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
+                            <span class="block text-brand-neon font-extrabold text-sm mb-1"><i class="fa-solid fa-bullseye mr-2"></i>Berbasis Solusi</span>
+                            <span class="text-xs text-slate-400">Setiap desain memiliki alasan & target audiens.</span>
+                        </div>
+                        <div class="p-4 rounded-xl bg-brand-card border border-brand-border">
+                            <span class="block text-brand-gold font-extrabold text-sm mb-1"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Eksplorasi Tren</span>
+                            <span class="text-xs text-slate-400">Mengadopsi gaya visual kontemporer modern.</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Right Skills Matrix -->
+                <!-- Skill Matrix -->
                 <div class="glass-card p-8 rounded-3xl border border-brand-border">
                     <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-sliders text-brand-neon"></i>
-                        Keahlian Software & DKV
+                        Penguasaan Bidang Kompetensi DKV
                     </h3>
 
-                    <div class="space-y-4">
+                    <div class="space-y-5">
                         <!-- Skill Item -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-200">Vector & Vektor Illustration (Adobe Illustrator/Corel)</span>
-                                <span class="text-brand-accent">90%</span>
+                            <div class="flex justify-between text-xs font-extrabold mb-1.5">
+                                <span class="text-slate-200">Desain Vektor & Ilustrasi Digital (Vector Art)</span>
+                                <span class="text-brand-accent">92%</span>
                             </div>
                             <div class="w-full h-2 rounded-full bg-brand-dark overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-brand-accent to-brand-violet rounded-full" style="width: 90%"></div>
+                                <div class="h-full bg-gradient-to-r from-brand-accent to-brand-violet rounded-full" style="width: 92%"></div>
                             </div>
                         </div>
 
                         <!-- Skill Item -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-200">Image Manipulation & Poster (Adobe Photoshop)</span>
+                            <div class="flex justify-between text-xs font-extrabold mb-1.5">
+                                <span class="text-slate-200">Manipulasi Foto & Post-Processing (Raster Art)</span>
                                 <span class="text-brand-cyan">88%</span>
                             </div>
                             <div class="w-full h-2 rounded-full bg-brand-dark overflow-hidden">
@@ -278,8 +329,8 @@
 
                         <!-- Skill Item -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-200">Fotografi & Composition</span>
+                            <div class="flex justify-between text-xs font-extrabold mb-1.5">
+                                <span class="text-slate-200">Fotografi Studio, Portrait & Komersial</span>
                                 <span class="text-brand-neon">85%</span>
                             </div>
                             <div class="w-full h-2 rounded-full bg-brand-dark overflow-hidden">
@@ -289,553 +340,501 @@
 
                         <!-- Skill Item -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-200">Desain Kemasan (Packaging 3D Mockup)</span>
-                                <span class="text-brand-violet">82%</span>
+                            <div class="flex justify-between text-xs font-extrabold mb-1.5">
+                                <span class="text-slate-200">Desain Kemasan (Packaging & 3D Mockup)</span>
+                                <span class="text-brand-gold">84%</span>
                             </div>
                             <div class="w-full h-2 rounded-full bg-brand-dark overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-brand-violet to-brand-accent rounded-full" style="width: 82%"></div>
+                                <div class="h-full bg-gradient-to-r from-brand-gold to-brand-violet rounded-full" style="width: 84%"></div>
                             </div>
                         </div>
 
                         <!-- Skill Item -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold mb-1">
-                                <span class="text-slate-200">Tipografi & Layouting</span>
-                                <span class="text-yellow-400">87%</span>
+                            <div class="flex justify-between text-xs font-extrabold mb-1.5">
+                                <span class="text-slate-200">Tipografi Layout & Custom Lettering</span>
+                                <span class="text-brand-violet">87%</span>
                             </div>
                             <div class="w-full h-2 rounded-full bg-brand-dark overflow-hidden">
-                                <div class="h-full bg-yellow-400 rounded-full" style="width: 87%"></div>
+                                <div class="h-full bg-gradient-to-r from-brand-violet to-brand-accent rounded-full" style="width: 87%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Teori & Materi Fondasi DKV Section -->
+    <section id="theory" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h2 class="text-xs font-extrabold tracking-widest text-brand-cyan uppercase mb-2">Pengetahuan Akademis DKV</h2>
+            <p class="text-3xl sm:text-4xl font-black text-white">Materi & Fondasi Desain Komunikasi Visual</p>
+            <p class="text-slate-400 mt-3 text-sm sm:text-base">Eksplorasi lengkap landasan teori yang melandasi setiap karya Hafiz Maulana.</p>
+        </div>
+
+        <!-- Interactive Tab Navigation -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="theoryTabs">
+            <button onclick="switchTab('tujuan')" class="tab-btn active-tab px-5 py-2.5 rounded-xl text-xs font-bold border border-brand-border transition-all flex items-center gap-2" id="tab-tujuan">
+                <i class="fa-solid fa-bullseye"></i>
+                <span>Tujuan Komunikasi Visual</span>
+            </button>
+            <button onclick="switchTab('unsur')" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold border border-brand-border text-slate-400 bg-brand-card hover:text-white transition-all flex items-center gap-2" id="tab-unsur">
+                <i class="fa-solid fa-shapes"></i>
+                <span>Unsur-Unsur DKV</span>
+            </button>
+            <button onclick="switchTab('prinsip')" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold border border-brand-border text-slate-400 bg-brand-card hover:text-white transition-all flex items-center gap-2" id="tab-prinsip">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <span>Prinsip Desain</span>
+            </button>
+            <button onclick="switchTab('branding')" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold border border-brand-border text-slate-400 bg-brand-card hover:text-white transition-all flex items-center gap-2" id="tab-branding">
+                <i class="fa-solid fa-copyright"></i>
+                <span>Element Branding</span>
+            </button>
+            <button onclick="switchTab('alur')" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold border border-brand-border text-slate-400 bg-brand-card hover:text-white transition-all flex items-center gap-2" id="tab-alur">
+                <i class="fa-solid fa-diagram-project"></i>
+                <span>Alur Komunikasi</span>
+            </button>
+        </div>
+
+        <!-- Tab Content Containers -->
+        <div class="glass-card p-8 rounded-3xl border border-brand-border min-h-[380px]">
+            
+            <!-- Tab 1: Tujuan Komunikasi Visual -->
+            <div id="content-tujuan" class="tab-content space-y-6">
+                <div class="border-b border-brand-border pb-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-extrabold text-brand-accent uppercase">Materi #1</span>
+                        <h3 class="text-2xl font-black text-white">Tujuan Utama Komunikasi Visual</h3>
+                    </div>
+                    <i class="fa-solid fa-bullseye text-3xl text-brand-accent/50"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Komunikasi Visual bertujuan menyampaikan pesan, gagasan, dan citra secara efisien melalui elemen grafis dan gambar sehingga audiens dapat dengan mudah memahami serta tergerak mengambil tindakan.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <div class="w-10 h-10 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold text-lg mb-3">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1">1. Informotif & Edukatif</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Menyampaikan data, fakta, atau instruksi secara jelas tanpa menimbulkan hambatan penafsiran (misal: Infografis & Peta).</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <div class="w-10 h-10 rounded-xl bg-brand-violet/20 text-brand-violet flex items-center justify-center font-bold text-lg mb-3">
+                            <i class="fa-solid fa-comments-dollar"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1">2. Persuasif & Komersial</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Mempengaruhi minat, perilaku, dan keputusan pembelian calon konsumen (misal: Poster Iklan, Flyer, & Kemasan).</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <div class="w-10 h-10 rounded-xl bg-brand-cyan/20 text-brand-cyan flex items-center justify-center font-bold text-lg mb-3">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-base mb-1">3. Identitas & Citra Merf</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">Membangun diferensiasi dan daya ingat yang kuat bagi suatu merek atau instansi (misal: Logo, Watermark, & GSM).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Unsur-Unsur DKV -->
+            <div id="content-unsur" class="tab-content hidden space-y-6">
+                <div class="border-b border-brand-border pb-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-extrabold text-brand-violet uppercase">Materi #2</span>
+                        <h3 class="text-2xl font-black text-white">Unsur-Unsur Dasar DKV (Visual Elements)</h3>
+                    </div>
+                    <i class="fa-solid fa-shapes text-3xl text-brand-violet/50"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Unsur-unsur visual adalah komponen pembentuk karya seni dan desain yang menjadi media bagi desainer dalam menyampaikan pesan visual.
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-brand-accent font-extrabold text-base block mb-1">1. Titik (Dot)</span>
+                        <p class="text-xs text-slate-400">Elemen paling dasar yang menjadi awal dari segala bentuk dan garis.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-brand-violet font-extrabold text-base block mb-1">2. Garis (Line)</span>
+                        <p class="text-xs text-slate-400">Hubungan antar titik yang memberi kesan arah, irama, dan struktur.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-brand-cyan font-extrabold text-base block mb-1">3. Bidang (Shape)</span>
+                        <p class="text-xs text-slate-400">Area 2 dimensi geometris maupun organik yang membatasi ruang.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-brand-neon font-extrabold text-base block mb-1">4. Warna (Color)</span>
+                        <p class="text-xs text-slate-400">Elemen emosional utama (RGB / CMYK) penghidup suasana visual.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-brand-gold font-extrabold text-base block mb-1">5. Ruang (Space)</span>
+                        <p class="text-xs text-slate-400">Jarak antar elemen (Negative/Positive Space) untuk menciptakan kedalaman.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-rose-400 font-extrabold text-base block mb-1">6. Tekstur (Texture)</span>
+                        <p class="text-xs text-slate-400">Karakteristik permukaan visual yang terasa halus, kasar, atau bertumpuk.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-indigo-400 font-extrabold text-base block mb-1">7. Tipografi (Type)</span>
+                        <p class="text-xs text-slate-400">Seni memilih & menata huruf untuk fungsi keterbacaan & ekspresi.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-sky-400 font-extrabold text-base block mb-1">8. Gelap Terang</span>
+                        <p class="text-xs text-slate-400">Value pencahayaan yang memberikan dimensi dan kontras visual.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Prinsip Desain -->
+            <div id="content-prinsip" class="tab-content hidden space-y-6">
+                <div class="border-b border-brand-border pb-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-extrabold text-brand-neon uppercase">Materi #3</span>
+                        <h3 class="text-2xl font-black text-white">Prinsip-Prinsip Utama Desain Grafis</h3>
+                    </div>
+                    <i class="fa-solid fa-scale-balanced text-3xl text-brand-neon/50"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Prinsip desain adalah pedoman tata letak dalam menyusun unsur-unsur visual agar tercipta komposisi yang estetis, harmonis, dan mudah dipahami.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-arrows-left-right-to-line text-brand-accent"></i>
+                            Keseimbangan (Balance)
+                        </h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-2">Penyebaran bobot visual dalam karya, baik secara Simetris (seimbang sama), Asimetris (seimbang berlawanan), maupun Radial.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-half-stroke text-brand-cyan"></i>
+                            Kontras & Penekanan
+                        </h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-2">Perbedaan mencolok pada ukuran, warna, atau bentuk untuk menciptakan Fokal Point (pusat perhatian utama audiens).</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-puzzle-piece text-brand-gold"></i>
+                            Kesatuan (Unity / Harmony)
+                        </h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-2">Hubungan selaras antar seluruh elemen visual sehingga tampak sebagai satu kesatuan karya yang utuh dan konsisten.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Element Branding -->
+            <div id="content-branding" class="tab-content hidden space-y-6">
+                <div class="border-b border-brand-border pb-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-extrabold text-brand-gold uppercase">Materi #4</span>
+                        <h3 class="text-2xl font-black text-white">Elemen-Elemen Branding & Brand Identity</h3>
+                    </div>
+                    <i class="fa-solid fa-copyright text-3xl text-brand-gold/50"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Branding adalah proses pembentukan persepsi dan identitas visual unik bagi produk, layanan, atau individu agar berkarakter dan mudah dikenali pasar.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-2">
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-xs text-brand-gold font-bold block mb-1">01. Logo & Mark</span>
+                        <h4 class="text-base font-bold text-white">Simbol Identitas Utama</h4>
+                        <p class="text-xs text-slate-400 mt-2">Logotype, Logomark, atau Kombinasi yang mencerminkan esensi merek secara fleksibel.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-xs text-brand-accent font-bold block mb-1">02. Color Palette</span>
+                        <h4 class="text-base font-bold text-white">Palet Warna Khas</h4>
+                        <p class="text-xs text-slate-400 mt-2">Penetapan warna primer dan sekunder untuk membangun asosiasi emosional merek.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-xs text-brand-cyan font-bold block mb-1">03. Typography System</span>
+                        <h4 class="text-base font-bold text-white">Hirarki Font Resmi</h4>
+                        <p class="text-xs text-slate-400 mt-2">Kombinasi font untuk Heading, Body Text, dan aksen komunikasi promosi.</p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-brand-dark/80 border border-brand-border">
+                        <span class="text-xs text-brand-neon font-bold block mb-1">04. Graphic Standard</span>
+                        <h4 class="text-base font-bold text-white">Pedoman GSM & Asset</h4>
+                        <p class="text-xs text-slate-400 mt-2">Panduan aplikasi logo pada kemasan, merchandise, watermark, dan media digital.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 5: Alur Komunikasi Visual -->
+            <div id="content-alur" class="tab-content hidden space-y-6">
+                <div class="border-b border-brand-border pb-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-extrabold text-brand-cyan uppercase">Materi #5</span>
+                        <h3 class="text-2xl font-black text-white">Alur Proses Komunikasi Visual</h3>
+                    </div>
+                    <i class="fa-solid fa-diagram-project text-3xl text-brand-cyan/50"></i>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Setiap karya visual bekerja berdasarkan model komunikasi pesan terstruktur dari desainer hingga diterima oleh audiens sasaran.
+                </p>
+
+                <!-- Flowchart visual -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-4">
+                    <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-border text-center">
+                        <span class="w-8 h-8 rounded-full bg-brand-accent/20 text-brand-accent font-bold text-xs flex items-center justify-center mx-auto mb-2">1</span>
+                        <h4 class="text-xs font-bold text-white">Komunikator</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Desainer / Klien penggagas ide.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-border text-center">
+                        <span class="w-8 h-8 rounded-full bg-brand-violet/20 text-brand-violet font-bold text-xs flex items-center justify-center mx-auto mb-2">2</span>
+                        <h4 class="text-xs font-bold text-white">Encoding</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Penyusunan ke bentuk bentuk visual & warna.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-border text-center">
+                        <span class="w-8 h-8 rounded-full bg-brand-cyan/20 text-brand-cyan font-bold text-xs flex items-center justify-center mx-auto mb-2">3</span>
+                        <h4 class="text-xs font-bold text-white">Media / Saluran</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Cetak, Poster, Digital, Packaging.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-border text-center">
+                        <span class="w-8 h-8 rounded-full bg-brand-neon/20 text-brand-neon font-bold text-xs flex items-center justify-center mx-auto mb-2">4</span>
+                        <h4 class="text-xs font-bold text-white">Decoding</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Penafsiran pesan oleh Komunikan/Audiens.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-brand-dark/90 border border-brand-border text-center">
+                        <span class="w-8 h-8 rounded-full bg-brand-gold/20 text-brand-gold font-bold text-xs flex items-center justify-center mx-auto mb-2">5</span>
+                        <h4 class="text-xs font-bold text-white">Feedback</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Respon / Tindakan dari audiens target.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Portfolio Gallery Section -->
-    <section id="portfolio" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-            <h2 class="text-xs font-bold tracking-widest text-brand-cyan uppercase mb-2">Showcase Portofolio</h2>
-            <p class="text-3xl sm:text-4xl font-extrabold text-white">Galeri Karya Hafiz Maulana</p>
-            <p class="text-slate-400 mt-3 text-sm sm:text-base">Kumpulan karya pilihan mencakup Nirmana, Branding Watermark, Poster, Infografis, Stiker, Kemasan, 3 Fotografi, Kolase, dan Tipografi.</p>
-        </div>
-
-        <!-- Filter Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
-            <button class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-accent text-white" data-filter="all">Semua Karya</button>
-            <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-card text-slate-400 border border-brand-border hover:text-white" data-filter="graphic">Desain Grafis</button>
-            <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-card text-slate-400 border border-brand-border hover:text-white" data-filter="photo">Fotografi</button>
-            <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-card text-slate-400 border border-brand-border hover:text-white" data-filter="branding">Branding & Kemasan</button>
-        </div>
-
-        <!-- Gallery Grid -->
-        <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <!-- Item 1: Nirmana -->
-            <div class="portfolio-item graphic glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center p-4">
-                    <!-- SVG Visual for Nirmana -->
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <pattern id="nirmanaPattern" width="20" height="20" patternUnits="userSpaceOnUse">
-                                <circle cx="10" cy="10" r="8" fill="none" stroke="#8B5CF6" stroke-width="1.5"/>
-                                <path d="M0 10 L20 10 M10 0 L10 20" stroke="#06B6D4" stroke-width="0.5"/>
-                            </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="#0F172A"/>
-                        <rect width="100%" height="100%" fill="url(#nirmanaPattern)"/>
-                        <polygon points="150,20 260,180 40,180" fill="none" stroke="#10B981" stroke-width="3"/>
-                        <circle cx="150" cy="115" r="45" fill="#6366F1" opacity="0.6"/>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Desain Nirmana</span>
-                        <h3 class="text-lg font-bold text-white">Nirmana Datar & Irama Ritme</h3>
-                        <p class="text-xs text-slate-300 mt-1">Eksplorasi garis, bentuk geometris, dan irama visual keselarasan optik.</p>
-                        <button onclick="openModal('Nirmana Datar & Irama Ritme', 'Nirmana', 'Eksplorasi konsep titik, garis, dan ritme geometris dalam Nirmana Datar. Menguji keseimbangan visual, kontras warna, serta harmoni elemen dasar DKV.', 'Adobe Illustrator / Manual')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-accent/20 text-brand-accent uppercase">Nirmana</span>
-                    <h3 class="text-base font-bold text-white mt-2">Nirmana Datar & Irama Ritme</h3>
-                </div>
-            </div>
-
-            <!-- Item 2: Watermark -->
-            <div class="portfolio-item branding glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#080C14"/>
-                        <circle cx="150" cy="100" r="60" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-                        <text x="150" y="110" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="28" fill="rgba(255,255,255,0.3)" text-anchor="middle" letter-spacing="4">HM CREATIVE</text>
-                        <path d="M 110,130 L 190,70" stroke="#6366F1" stroke-width="2" opacity="0.8"/>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Identity & Protection</span>
-                        <h3 class="text-lg font-bold text-white">Watermark Stamp Design</h3>
-                        <p class="text-xs text-slate-300 mt-1">Identitas hak cipta fotografi & hasil seni digital dengan watermark elegan.</p>
-                        <button onclick="openModal('Watermark Stamp Design', 'Watermark / Branding', 'Desain stempel watermark profesional dengan transparansi optimal tanpa mengganggu estetika karya utama.', 'Vector Tool')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-violet/20 text-brand-violet uppercase">Watermark</span>
-                    <h3 class="text-base font-bold text-white mt-2">Watermark Identitas Desainer</h3>
-                </div>
-            </div>
-
-            <!-- Item 3: Poster -->
-            <div class="portfolio-item graphic glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-indigo-950 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#1E1B4B"/>
-                        <circle cx="150" cy="80" r="50" fill="#8B5CF6"/>
-                        <text x="150" y="70" font-size="20" font-weight="900" fill="#FFF" text-anchor="middle">EXPO DKV 2026</text>
-                        <text x="150" y="95" font-size="10" fill="#E0E7FF" text-anchor="middle">CREATIVE FUTURE IN HAURGEULIS</text>
-                        <rect x="70" y="130" width="160" height="30" rx="6" fill="#06B6D4"/>
-                        <text x="150" y="150" font-size="11" font-weight="700" fill="#000" text-anchor="middle">SMK AL IRSYAD</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Visual Campaign</span>
-                        <h3 class="text-lg font-bold text-white">Poster Acara Pameran DKV</h3>
-                        <p class="text-xs text-slate-300 mt-1">Poster promosi pameran seni dengan hirarki tipografi dan komposisi vokal.</p>
-                        <button onclick="openModal('Poster Acara Pameran DKV', 'Poster Event', 'Desain poster komersial dan pameran dengan teknik Layout Grid dan kontras warna berenergi tinggi.', 'Adobe Photoshop & Photoshop')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-accent/20 text-brand-accent uppercase">Poster</span>
-                    <h3 class="text-base font-bold text-white mt-2">Poster Event & Pameran DKV</h3>
-                </div>
-            </div>
-
-            <!-- Item 4: Infografis Proses Kreatif -->
-            <div class="portfolio-item graphic glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#0F172A"/>
-                        <path d="M 40,100 L 110,100 L 180,100 L 250,100" stroke="#334155" stroke-width="4"/>
-                        <circle cx="50" cy="100" r="16" fill="#6366F1"/>
-                        <circle cx="120" cy="100" r="16" fill="#8B5CF6"/>
-                        <circle cx="190" cy="100" r="16" fill="#06B6D4"/>
-                        <circle cx="250" cy="100" r="16" fill="#10B981"/>
-                        <text x="50" y="140" font-size="9" fill="#FFF" text-anchor="middle">Brief</text>
-                        <text x="120" y="140" font-size="9" fill="#FFF" text-anchor="middle">Sketsa</text>
-                        <text x="190" y="140" font-size="9" fill="#FFF" text-anchor="middle">Vektor</text>
-                        <text x="250" y="140" font-size="9" fill="#FFF" text-anchor="middle">Final</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Information Design</span>
-                        <h3 class="text-lg font-bold text-white">Infografis Alur Kreatif</h3>
-                        <p class="text-xs text-slate-300 mt-1">Penyajian informasi visual tahap desain dari ideasi hingga eksekusi akhir.</p>
-                        <button onclick="openModal('Infografis Alur Kreatif', 'Infografis', 'Infografis edukatif yang menjelaskan metodologi Design Thinking secara terstruktur dan mudah dipahami.', 'Vector Illustration')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-cyan/20 text-brand-cyan uppercase">Infografis</span>
-                    <h3 class="text-base font-bold text-white mt-2">Infografis Proses Kreatif</h3>
-                </div>
-            </div>
-
-            <!-- Item 5: Stiker -->
-            <div class="portfolio-item graphic glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-emerald-950 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#064E3B"/>
-                        <!-- Die-cut sticker outline -->
-                        <path d="M 150 40 L 210 75 L 210 145 L 150 180 L 90 145 L 90 75 Z" fill="#FFF" stroke="#10B981" stroke-width="4"/>
-                        <path d="M 150 48 L 202 78 L 202 140 L 150 172 L 98 140 L 98 78 Z" fill="#0F172A"/>
-                        <text x="150" y="115" font-size="18" font-weight="900" fill="#10B981" text-anchor="middle">DKV LIFE</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Merchandise & Art</span>
-                        <h3 class="text-lg font-bold text-white">Stiker Die-Cut DKV Squad</h3>
-                        <p class="text-xs text-slate-300 mt-1">Desain stiker ilustrasi vektor untuk laptop, notebook, dan merchandise.</p>
-                        <button onclick="openModal('Stiker Die-Cut DKV Squad', 'Stiker', 'Desain stiker berformat Die-cut siap cetak dengan garis potong presisi dan warna pop-out.', 'Adobe Illustrator')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-neon/20 text-brand-neon uppercase">Stiker</span>
-                    <h3 class="text-base font-bold text-white mt-2">Stiker Vector Die-Cut</h3>
-                </div>
-            </div>
-
-            <!-- Item 6: Kemasan -->
-            <div class="portfolio-item branding glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#0B0F17"/>
-                        <!-- Isometric Box -->
-                        <polygon points="150,40 220,70 150,100 80,70" fill="#6366F1"/>
-                        <polygon points="80,70 150,100 150,170 80,140" fill="#4F46E5"/>
-                        <polygon points="150,100 220,70 220,140 150,170" fill="#4338CA"/>
-                        <text x="115" y="120" font-size="10" font-weight="bold" fill="#FFF" transform="rotate(-15 115 120)">HAUR DRINK</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Packaging Design</span>
-                        <h3 class="text-lg font-bold text-white">Desain Kemasan Produk Lokal</h3>
-                        <p class="text-xs text-slate-300 mt-1">Pengembangan jaring-jaring kemasan makanan/minuman dengan nilai jual tinggi.</p>
-                        <button onclick="openModal('Desain Kemasan Produk Lokal', 'Kemasan', 'Merancang kemasan produk komersial termasuk jaring-jaring lipatan, komposisi bahan, dan branding visual.', '3D Mockup & Illustrator')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-violet/20 text-brand-violet uppercase">Kemasan</span>
-                    <h3 class="text-base font-bold text-white mt-2">Kemasan Produk & Mockup</h3>
-                </div>
-            </div>
-
-            <!-- Item 7: Photography 1 -->
-            <div class="portfolio-item photo glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-slate-800 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#1E293B"/>
-                        <circle cx="150" cy="80" r="35" fill="#F59E0B"/>
-                        <path d="M 50 180 C 100 120, 200 120, 250 180 Z" fill="#334155"/>
-                        <text x="150" y="185" font-size="10" fill="#94A3B8" text-anchor="middle">Human Interest Portrait</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Photography 1/3</span>
-                        <h3 class="text-lg font-bold text-white">Fotografi Human Interest</h3>
-                        <p class="text-xs text-slate-300 mt-1">Eksplorasi pencahayaan alami dan ekspresi manusia di area Haurgeulis.</p>
-                        <button onclick="openModal('Fotografi Human Interest', 'Photography', 'Karya foto jurnalistik/human interest menangkap momen otentik dengan komposisi Rule of Thirds.', 'Kamera DSLR / ISO 200')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-cyan/20 text-brand-cyan uppercase">Photography 1</span>
-                    <h3 class="text-base font-bold text-white mt-2">Fotografi Human Interest</h3>
-                </div>
-            </div>
-
-            <!-- Item 8: Photography 2 -->
-            <div class="portfolio-item photo glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#020617"/>
-                        <!-- Bokeh Effect -->
-                        <circle cx="80" cy="60" r="30" fill="#06B6D4" opacity="0.3"/>
-                        <circle cx="220" cy="120" r="45" fill="#8B5CF6" opacity="0.4"/>
-                        <circle cx="150" cy="90" r="20" fill="#10B981" opacity="0.5"/>
-                        <text x="150" y="180" font-size="10" fill="#38BDF8" text-anchor="middle">Night City Street Light</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Photography 2/3</span>
-                        <h3 class="text-lg font-bold text-white">Fotografi Night Street & Bokeh</h3>
-                        <p class="text-xs text-slate-300 mt-1">Teknik pencahayaan malam hari dengan efek bokeh dan slow shutter speed.</p>
-                        <button onclick="openModal('Fotografi Night Street & Bokeh', 'Photography', 'Eksplorasi estetika cahaya malam hari menggunakan teknik aperture lebar untuk menghasilkan bokeh halus.', 'DSLR Lens 50mm f/1.8')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-cyan/20 text-brand-cyan uppercase">Photography 2</span>
-                    <h3 class="text-base font-bold text-white mt-2">Fotografi Street & Night Mood</h3>
-                </div>
-            </div>
-
-            <!-- Item 9: Photography 3 -->
-            <div class="portfolio-item photo glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-amber-950 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#451A03"/>
-                        <rect x="110" y="60" width="80" height="100" rx="10" fill="#D97706"/>
-                        <circle cx="150" cy="110" r="20" fill="#78350F"/>
-                        <text x="150" y="185" font-size="10" fill="#FCD34D" text-anchor="middle">Commercial Product Shot</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Photography 3/3</span>
-                        <h3 class="text-lg font-bold text-white">Fotografi Produk Komersial</h3>
-                        <p class="text-xs text-slate-300 mt-1">Foto komersial studio dengan penataan lighting produk yang komersial.</p>
-                        <button onclick="openModal('Fotografi Produk Komersial', 'Photography', 'Pengambilan foto studio produk komersial dengan teknik lighting softbox untuk katalog.', 'Studio Lighting Setup')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-cyan/20 text-brand-cyan uppercase">Photography 3</span>
-                    <h3 class="text-base font-bold text-white mt-2">Fotografi Studio Produk</h3>
-                </div>
-            </div>
-
-            <!-- Item 10: Kolase -->
-            <div class="portfolio-item graphic glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-purple-950 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#2E1065"/>
-                        <!-- Collage Mixed Cutouts -->
-                        <polygon points="20,20 120,40 80,150" fill="#EC4899" opacity="0.8"/>
-                        <circle cx="200" cy="80" r="40" fill="#3B82F6" opacity="0.7"/>
-                        <rect x="140" y="100" width="120" height="70" transform="rotate(-10 140 100)" fill="#10B981"/>
-                        <text x="150" y="110" font-weight="bold" font-size="16" fill="#FFF">SURREAL</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Mixed Media Art</span>
-                        <h3 class="text-lg font-bold text-white">Kolase Digital Surealis</h3>
-                        <p class="text-xs text-slate-300 mt-1">Penggabungan potongan gambar visual menjadi karya seni surealis yang eksploratif.</p>
-                        <button onclick="openModal('Kolase Digital Surealis', 'Kolase', 'Seni kolase digital yang menggabungkan elemen vintage dan modern menjadi narasi visual baru.', 'Photoshop Digital Cutout')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-brand-violet/20 text-brand-violet uppercase">Kolase</span>
-                    <h3 class="text-base font-bold text-white mt-2">Kolase Digital Surealis</h3>
-                </div>
-            </div>
-
-            <!-- Item 11: Typografi -->
-            <div class="portfolio-item graphic glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
-                <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center p-4">
-                    <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100%" height="100%" fill="#090D16"/>
-                        <text x="150" y="80" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" fill="#6366F1" text-anchor="middle" letter-spacing="-2">TYPO</text>
-                        <text x="150" y="120" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="36" fill="#06B6D4" text-anchor="middle" letter-spacing="6">GRAFI</text>
-                        <line x1="50" y1="135" x2="250" y2="135" stroke="#8B5CF6" stroke-width="2"/>
-                        <text x="150" y="155" font-size="10" fill="#94A3B8" text-anchor="middle">EXPRESSIVE LETTERING</text>
-                    </svg>
-                    <div class="absolute inset-0 bg-brand-dark/80 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
-                        <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Lettering & Type</span>
-                        <h3 class="text-lg font-bold text-white">Eksperimen Tipografi Ekspresif</h3>
-                        <p class="text-xs text-slate-300 mt-1">Eksplorasi anatomi huruf, kerning, dan tipografi ekspresif untuk karya desain.</p>
-                        <button onclick="openModal('Eksperimen Tipografi Ekspresif', 'Tipografi', 'Karya ekspresi huruf menggunakan teknik manipulasi tipe dan keterbacaan tinggi.', 'Custom Lettering & Vector')" class="mt-3 px-3 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-semibold self-start">Lihat Detail</button>
-                    </div>
-                </div>
-                <div class="p-5">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-yellow-400/20 text-yellow-400 uppercase">Tipografi</span>
-                    <h3 class="text-base font-bold text-white mt-2">Tipografi Ekspresif</h3>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Creative Process Section -->
-    <section id="creative-process" class="py-20 bg-brand-card/40 border-y border-brand-border/50">
+    <section id="portfolio" class="py-24 bg-brand-card/30 border-t border-brand-border/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-bold tracking-widest text-brand-neon uppercase mb-2">Workflow Desainer</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white">Infografis Proses Kreatif</p>
-                <p class="text-slate-400 mt-3 text-sm sm:text-base">Tahapan ilmiah dan sistematis Hafiz Maulana dalam merancang setiap karya DKV.</p>
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-extrabold tracking-widest text-brand-accent uppercase mb-2">Showcase Portofolio</h2>
+                <p class="text-3xl sm:text-4xl font-black text-white">11 Karya Pilihan Hafiz Maulana</p>
+                <p class="text-slate-400 mt-3 text-sm sm:text-base">Mencakup Nirmana, Watermark, Poster, Infografis, Stiker, Kemasan, 3 Fotografi, Kolase, dan Tipografi.</p>
             </div>
 
-            <!-- Steps Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- Step 1 -->
-                <div class="glass-card p-6 rounded-2xl border border-brand-border text-center relative group hover:border-brand-accent transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center font-extrabold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">1</div>
-                    <h3 class="font-bold text-white text-base mb-2">Riset & Brief</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Memahami tujuan klien, sasaran audiens, dan problema komunikasi visual.</p>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="glass-card p-6 rounded-2xl border border-brand-border text-center relative group hover:border-brand-violet transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-brand-violet/20 text-brand-violet flex items-center justify-center font-extrabold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">2</div>
-                    <h3 class="font-bold text-white text-base mb-2">Brainstorming</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Penyusunan Moodboard, kata kunci visual, dan eksplorasi ide ideasi.</p>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="glass-card p-6 rounded-2xl border border-brand-border text-center relative group hover:border-brand-cyan transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 text-brand-cyan flex items-center justify-center font-extrabold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">3</div>
-                    <h3 class="font-bold text-white text-base mb-2">Sketsa Kasar</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Pembuatan *thumbnail sketch* secara manual untuk menguji komposisi dasar.</p>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="glass-card p-6 rounded-2xl border border-brand-border text-center relative group hover:border-brand-neon transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-brand-neon/20 text-brand-neon flex items-center justify-center font-extrabold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">4</div>
-                    <h3 class="font-bold text-white text-base mb-2">Eksekusi Digital</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Vektorisasi, pemilihan warna, dan layouting pada software profesional DKV.</p>
-                </div>
-
-                <!-- Step 5 -->
-                <div class="glass-card p-6 rounded-2xl border border-brand-border text-center relative group hover:border-yellow-400 transition-all">
-                    <div class="w-12 h-12 rounded-xl bg-yellow-400/20 text-yellow-400 flex items-center justify-center font-extrabold text-xl mx-auto mb-4 group-hover:scale-110 transition-transform">5</div>
-                    <h3 class="font-bold text-white text-base mb-2">Finalization</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Uji siap cetak/digital, *mockup presentation*, dan serah terima karya.</p>
-                </div>
+            <!-- Filter Category Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
+                <button class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-accent text-white" data-filter="all">Semua Karya (12)</button>
+                <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-card text-slate-400 border border-brand-border hover:text-white" data-filter="desain">Desain Grafis</button>
+                <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-card text-slate-400 border border-brand-border hover:text-white" data-filter="branding">Branding & Kemasan</button>
+                <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-card text-slate-400 border border-brand-border hover:text-white" data-filter="photo">Fotografi (3)</button>
+                <button class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-card text-slate-400 border border-brand-border hover:text-white" data-filter="art">Seni & Manga</button>
             </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-xs font-bold tracking-widest text-brand-cyan uppercase mb-2">Mari Bekerja Sama</h2>
-                <p class="text-3xl sm:text-4xl font-extrabold text-white mb-6">Punya Proyek Desain?</p>
-                <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
-                    Saya terbuka untuk proyek desain lepas (freelance), kolaborasi pameran, maupun kesempatan magang industri. Silakan hubungi saya untuk diskusi lebih lanjut!
-                </p>
+            <!-- Gallery Grid (12 Items) -->
+            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <!-- Info List -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 p-4 rounded-xl glass-card border border-brand-border">
-                        <div class="w-12 h-12 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-school"></i>
-                        </div>
-                        <div>
-                            <span class="text-xs text-slate-400 block font-medium">Sekolah</span>
-                            <span class="text-sm font-bold text-white">SMK Al Irsyad Al Islamiyyah Haurgeulis</span>
+                <!-- Item 1: Nirmana -->
+                <div class="portfolio-item desain art glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center p-4">
+                        <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="100%" fill="#0A0F1D"/>
+                            <circle cx="150" cy="100" r="80" fill="none" stroke="#6366F1" stroke-width="2" stroke-dasharray="4 4"/>
+                            <polygon points="150,20 230,160 70,160" fill="none" stroke="#8B5CF6" stroke-width="3"/>
+                            <polygon points="150,180 230,40 70,40" fill="none" stroke="#06B6D4" stroke-width="2"/>
+                            <circle cx="150" cy="100" r="30" fill="#10B981" opacity="0.7"/>
+                        </svg>
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #1 • Nirmana</span>
+                            <h3 class="text-lg font-bold text-white">Nirmana Datar & Irama Geometris</h3>
+                            <p class="text-xs text-slate-300 mt-1">Studi ritme, keseimbangan optik, dan eksplorasi garis dasar DKV.</p>
+                            <button onclick="openModal('Nirmana Datar & Irama Geometris', 'Nirmana', 'Eksplorasi komposisi nirmana datar (2D) dengan pengulangan irama geometris. Menguji ketelitian rasio elemen visual dan keseimbangan positif-negatif.', 'Adobe Illustrator & Manual Sketching', '')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
                         </div>
                     </div>
-
-                    <div class="flex items-center gap-4 p-4 rounded-xl glass-card border border-brand-border">
-                        <div class="w-12 h-12 rounded-xl bg-brand-cyan/20 text-brand-cyan flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div>
-                            <span class="text-xs text-slate-400 block font-medium">Lokasi</span>
-                            <span class="text-sm font-bold text-white">Haurgeulis, Indramayu, Jawa Barat</span>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-4 p-4 rounded-xl glass-card border border-brand-border">
-                        <div class="w-12 h-12 rounded-xl bg-brand-neon/20 text-brand-neon flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-envelope"></i>
-                        </div>
-                        <div>
-                            <span class="text-xs text-slate-400 block font-medium">Email Kontak</span>
-                            <span class="text-sm font-bold text-white">hafiz.maulana.dkv@gmail.com</span>
-                        </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-accent/20 text-brand-accent uppercase">1. Nirmana</span>
+                        <h3 class="text-base font-bold text-white mt-2">Nirmana Datar Geometris</h3>
                     </div>
                 </div>
-            </div>
 
-            <!-- Contact Form -->
-            <div class="glass-card p-8 rounded-3xl border border-brand-border">
-                <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Nama Lengkap</label>
-                        <input type="text" required placeholder="Masukkan nama Anda" class="w-full px-4 py-3 rounded-xl bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-accent transition-colors">
+                <!-- Item 2: Watermark -->
+                <div class="portfolio-item branding glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center p-4">
+                        <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="100%" fill="#050810"/>
+                            <circle cx="150" cy="100" r="65" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                            <text x="150" y="98" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="20" fill="rgba(255,255,255,0.5)" text-anchor="middle" letter-spacing="3">HAFIZ DKV</text>
+                            <text x="150" y="118" font-size="9" fill="rgba(6,182,212,0.8)" text-anchor="middle" letter-spacing="2">OFFICIAL WATERMARK</text>
+                            <path d="M 100,128 L 200,72" stroke="#6366F1" stroke-width="2" opacity="0.6"/>
+                        </svg>
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #2 • Watermark</span>
+                            <h3 class="text-lg font-bold text-white">Watermark Stempel Hak Cipta</h3>
+                            <p class="text-xs text-slate-300 mt-1">Identitas proteksi karya digital desainer dengan transparansi elegan.</p>
+                            <button onclick="openModal('Watermark Stempel Hak Cipta', 'Watermark / Branding', 'Desain stempel watermark profesional yang berfungsi melindungi hak cipta fotografi dan karya grafis tanpa merusak keindahan visual utama.', 'Vector Tool / Adobe Illustrator', '')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
                     </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Email</label>
-                        <input type="email" required placeholder="nama@email.com" class="w-full px-4 py-3 rounded-xl bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-accent transition-colors">
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-violet/20 text-brand-violet uppercase">2. Watermark</span>
+                        <h3 class="text-base font-bold text-white mt-2">Watermark Proteksi Karya</h3>
                     </div>
+                </div>
 
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Kategori Proyek</label>
-                        <select class="w-full px-4 py-3 rounded-xl bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-accent transition-colors">
-                            <option>Desain Logo & Watermark</option>
-                            <option>Desain Poster & Pamflet</option>
-                            <option>Desain Kemasan (Packaging)</option>
-                            <option>Sesi Fotografi</option>
-                            <option>Karya DKV Lainnya</option>
-                        </select>
+                <!-- Item 3: Poster -->
+                <div class="portfolio-item desain glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006208_1c376640.jpg" alt="Poster Karya Hafiz" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #3 • Poster</span>
+                            <h3 class="text-lg font-bold text-white">Poster Komersial & Promosi</h3>
+                            <p class="text-xs text-slate-300 mt-1">Poster karya DKV dengan susunan layout tipografi dan kontras kuat.</p>
+                            <button onclick="openModal('Poster Komersial & Promosi', 'Poster Commercial', 'Desain poster komersial karya Hafiz Maulana dengan pengolahan elemen visual tajam dan komposisi hirarki informasi solutif.', 'Adobe Photoshop & Illustrator', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006208_1c376640.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
                     </div>
-
-                    <div>
-                        <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Pesan Proyek</label>
-                        <textarea rows="4" required placeholder="Jelaskan kebutuhan desain Anda secara singkat..." class="w-full px-4 py-3 rounded-xl bg-brand-dark border border-brand-border text-white text-sm focus:outline-none focus:border-brand-accent transition-colors"></textarea>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-accent/20 text-brand-accent uppercase">3. Poster</span>
+                        <h3 class="text-base font-bold text-white mt-2">Poster Promosi & Komersial</h3>
                     </div>
+                </div>
 
-                    <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-accent via-brand-violet to-brand-cyan text-white font-bold text-sm hover:opacity-95 transition-all shadow-lg hover:shadow-brand-accent/25">
-                        Kirim Pesan Diskusi
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
+                <!-- Item 4: Infografis Proses Kreatif -->
+                <div class="portfolio-item desain glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789005960_92185dcb.jpg" alt="Infografis Proses Kreatif" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #4 • Infografis</span>
+                            <h3 class="text-lg font-bold text-white">Infografis Alur Proses Kreatif</h3>
+                            <p class="text-xs text-slate-300 mt-1">Visualisasi informasi alur tahapan kerja DKV yang terstruktur.</p>
+                            <button onclick="openModal('Infografis Alur Proses Kreatif', 'Infografis', 'Desain infografis komprehensif yang memvisualisasikan urutan tahapan kerja kreatif dari perancangan hingga produksi.', 'Vector Illustration / Adobe Illustrator', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789005960_92185dcb.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-cyan/20 text-brand-cyan uppercase">4. Infografis</span>
+                        <h3 class="text-base font-bold text-white mt-2">Infografis Proses Kreatif</h3>
+                    </div>
+                </div>
 
-    <!-- Footer -->
-    <footer class="mt-auto border-t border-brand-border bg-brand-dark py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-xs text-slate-400">
-                &copy; 2026 Hafiz Maulana. Class 12 DKV • SMK Al Irsyad Al Islamiyyah Haurgeulis.
-            </p>
-            <div class="flex items-center gap-4 text-slate-400 text-lg">
-                <a href="#" class="hover:text-brand-accent transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="hover:text-brand-cyan transition-colors"><i class="fa-brands fa-behance"></i></a>
-                <a href="#" class="hover:text-brand-neon transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="hover:text-brand-violet transition-colors"><i class="fa-brands fa-dribbble"></i></a>
-            </div>
-        </div>
-    </footer>
+                <!-- Item 5: Keychain Konsep Japanese Culture -->
+                <div class="portfolio-item branding art glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789005920_b132810c.jpg" alt="Keychain Konsep Japanese Culture" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #5 • Keychain / Merchandise</span>
+                            <h3 class="text-lg font-bold text-white">Keychain Japanese Culture</h3>
+                            <p class="text-xs text-slate-300 mt-1">Desain gantungan kunci bermotif seni budaya Jepang modern.</p>
+                            <button onclick="openModal('Keychain Konsep Japanese Culture', 'Merchandise Design', 'Karya desain keychain siap cetak dengan penerapan estetika Japanese Culture, memadukan ilustrasi ikonik bernilai jual tinggi.', 'CorelDraw & Adobe Illustrator', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789005920_b132810c.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-neon/20 text-brand-neon uppercase">5. Merchandise</span>
+                        <h3 class="text-base font-bold text-white mt-2">Keychain Japanese Culture</h3>
+                    </div>
+                </div>
 
-    <!-- Detail Modal Popup -->
-    <div id="portfolioModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="glass-card max-w-2xl w-full rounded-3xl p-6 border border-brand-border relative animate-fade-in">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <span id="modalCategory" class="text-xs font-bold text-brand-cyan uppercase tracking-wider">Kategori</span>
-            <h3 id="modalTitle" class="text-2xl font-extrabold text-white mt-1 mb-4">Judul Karya</h3>
-            <p id="modalDesc" class="text-sm text-slate-300 leading-relaxed mb-6">Deskripsi lengkap karya DKV...</p>
-            <div class="p-4 rounded-xl bg-brand-dark/80 border border-brand-border">
-                <span class="text-xs text-slate-400 block font-semibold">Software / Software Tools:</span>
-                <span id="modalTools" class="text-sm font-bold text-brand-accent">Software</span>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl bg-brand-border hover:bg-slate-700 text-white font-bold text-sm">Tutup Preview</button>
-            </div>
-        </div>
-    </div>
+                <!-- Item 6: Kemasan -->
+                <div class="portfolio-item branding glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-amber-950 relative overflow-hidden flex items-center justify-center p-4">
+                        <svg class="w-full h-full transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100%" height="100%" fill="#291003"/>
+                            <rect x="100" y="30" width="100" height="140" rx="12" fill="#78350F" stroke="#F59E0B" stroke-width="2"/>
+                            <rect x="110" y="45" width="80" height="110" rx="6" fill="#1C1917"/>
+                            <circle cx="150" cy="85" r="20" fill="#F59E0B"/>
+                            <text x="150" y="89" font-size="9" font-weight="900" fill="#000" text-anchor="middle">KOPI</text>
+                            <text x="150" y="125" font-size="8" fill="#D6D3D1" text-anchor="middle">Haurgeulis Bean</text>
+                        </svg>
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #6 • Kemasan</span>
+                            <h3 class="text-lg font-bold text-white">Desain Kemasan Standing Pouch</h3>
+                            <p class="text-xs text-slate-300 mt-1">Kemasan produk UMKM lokal Haurgeulis dengan visual komersial.</p>
+                            <button onclick="openModal('Desain Kemasan Standing Pouch', 'Kemasan / Packaging', 'Pengembangan jaring-jaring kemasan kopi daerah Haurgeulis, lengkap dengan label gizi, barcode, dan mockup 3D siap produksi.', 'Photoshop 3D Mockup & Illustrator', '')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-gold/20 text-brand-gold uppercase">6. Kemasan</span>
+                        <h3 class="text-base font-bold text-white mt-2">Desain Kemasan Product Mockup</h3>
+                    </div>
+                </div>
 
-    <!-- Custom Toast Message -->
-    <div id="toastMessage" class="fixed bottom-6 right-6 z-50 hidden glass-card border border-brand-neon px-6 py-4 rounded-2xl text-white font-semibold text-sm shadow-2xl flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-brand-neon text-xl"></i>
-        <span>Pesan Anda berhasil dikirimkan! Hafiz akan segera merespon.</span>
-    </div>
+                <!-- Item 7: Photography 1 -->
+                <div class="portfolio-item photo glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006181_6df2de3c.jpg" alt="Fotografi Karya 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #7 • Fotografi 1</span>
+                            <h3 class="text-lg font-bold text-white">Fotografi Karya Studio & Ekspresi</h3>
+                            <p class="text-xs text-slate-300 mt-1">Pengambilan gambar dengan komposisi lighting & kontras presisi.</p>
+                            <button onclick="openModal('Fotografi Karya 1', 'Fotografi 1', 'Hasil karya fotografi studio Hafiz Maulana yang berfokus pada teknik angle kamera, lighting, dan proses post-processing color grading.', 'DSLR Camera & Lightroom', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006181_6df2de3c.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-cyan/20 text-brand-cyan uppercase">7. Fotografi 1</span>
+                        <h3 class="text-base font-bold text-white mt-2">Fotografi Karya Studio 1</h3>
+                    </div>
+                </div>
 
-    <!-- JavaScript Interactivity -->
-    <script>
-        /* Mobile Menu Toggle */
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+                <!-- Item 8: Photography 2 -->
+                <div class="portfolio-item photo glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006160_b47ffab0.jpg" alt="Fotografi Karya 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #8 • Fotografi 2</span>
+                            <h3 class="text-lg font-bold text-white">Fotografi Komposisi & Subjek</h3>
+                            <p class="text-xs text-slate-300 mt-1">Pemanfaatan kedalaman bidang (DOF) dan framing visual menarik.</p>
+                            <button onclick="openModal('Fotografi Karya 2', 'Fotografi 2', 'Karya foto eksplorasi subjek visual dengan penataan komposisi rule of thirds dan tonal warna dramatis.', 'Mirrorless Camera & Lightroom', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006160_b47ffab0.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-cyan/20 text-brand-cyan uppercase">8. Fotografi 2</span>
+                        <h3 class="text-base font-bold text-white mt-2">Fotografi Karya Studio 2</h3>
+                    </div>
+                </div>
 
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+                <!-- Item 9: Photography 3 -->
+                <div class="portfolio-item photo glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006101_6a1cb3e1.jpg" alt="Fotografi Karya 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #9 • Fotografi 3</span>
+                            <h3 class="text-lg font-bold text-white">Fotografi Komersial Produk</h3>
+                            <p class="text-xs text-slate-300 mt-1">Pencahayaan studio presisi untuk menampilkan tekstur detail.</p>
+                            <button onclick="openModal('Fotografi Karya 3', 'Fotografi 3', 'Dokumentasi karya foto produk komersial yang mengutamakan ketajaman tekstur dan pencahayaan studio yang seimbang.', 'Studio Lighting & Camera', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006101_6a1cb3e1.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-brand-cyan/20 text-brand-cyan uppercase">9. Fotografi 3</span>
+                        <h3 class="text-base font-bold text-white mt-2">Fotografi Commercial Product</h3>
+                    </div>
+                </div>
 
-        /* Filter Portfolio items */
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const galleryItems = document.querySelectorAll('.portfolio-item');
+                <!-- Item 10: Gambar Manga -->
+                <div class="portfolio-item art glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006045_0da6159b.jpg" alt="Gambar Manga" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #10 • Manga Art</span>
+                            <h3 class="text-lg font-bold text-white">Ilustrasi & Gambar Manga</h3>
+                            <p class="text-xs text-slate-300 mt-1">Eksplorasi seni gambar manga dengan inking & detail ekspresif.</p>
+                            <button onclick="openModal('Ilustrasi & Gambar Manga', 'Seni Digital / Manga', 'Karya ilustrasi bergaya manga dengan garis inking yang dinamis, karakter ekspresif, serta eksekusi teknik arsir yang rapi.', 'Digital Drawing / Software Vector', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789006045_0da6159b.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bold self-start">Lihat Detail Karya</button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-[10px] font-extrabold px-2.5 py-1 rounded bg-purple-500/20 text-purple-400 uppercase">10. Manga Art</span>
+                        <h3 class="text-base font-bold text-white mt-2">Gambar & Ilustrasi Manga</h3>
+                    </div>
+                </div>
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => {
-                    b.classList.remove('bg-brand-accent', 'text-white');
-                    b.classList.add('bg-brand-card', 'text-slate-400');
-                });
-                btn.classList.add('bg-brand-accent', 'text-white');
-                btn.classList.remove('bg-brand-card', 'text-slate-400');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                galleryItems.forEach(item => {
-                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        /* Modal Functions */
-        function openModal(title, category, desc, tools) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalCategory').innerText = category;
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('modalTools').innerText = tools;
-            document.getElementById('portfolioModal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('portfolioModal').classList.add('hidden');
-        }
-
-        /* Form Handler Simulation */
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const toast = document.getElementById('toastMessage');
-            toast.classList.remove('hidden');
-            event.target.reset();
-
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 4000);
-        }
-    </script>
-</body>
-</html>
+                <!-- Item 11: Font Dekor / Tipografi -->
+                <div class="portfolio-item desain art glass-card rounded-2xl overflow-hidden border border-brand-border group hover:-translate-y-2 transition-all duration-300">
+                    <div class="h-64 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789005993_fdd07acd.jpg" alt="Font Dekor Tipografi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-brand-dark/85 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-6 transition-opacity">
+                            <span class="text-xs text-brand-cyan font-bold uppercase tracking-wider">Karya #11 • Tipografi</span>
+                            <h3 class="text-lg font-bold text-white">Font Dekor</h3>
+                            <p class="text-xs text-slate-300 mt-1">Desain tipografi huruf dekoratif berkarakter unik.</p>
+                            <button onclick="openModal('Font Dekor', 'Tipografi Dekoratif', 'Pengembangan bentuk anatomi huruf bergaya Font Dekoratif dengan karakter tegas yang cocok untuk judul komik, poster, atau sampul buku.', 'Vector Lettering / Illustrator', 'https://simangu.smksalirsyad-hgl.sch.id/apimangu/uploads/siswa/242510036/1789005993_fdd07acd.jpg')" class="mt-3 px-3.5 py-1.5 rounded-lg bg-brand-accent text-white text-xs font-bo
